@@ -23,37 +23,41 @@ def extract_news():
     # write first row of the csv file
     with open('news.csv', 'w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(["#", "url", "date", "title", "keywords", "summary", "text"])
+        writer.writerow(["id", "source", "url", "date", "title", "keywords", "summary"])
 
     i = 1
+    source = {0: "bbc", 1: "cnbc", 2: "cnn", 3: "forbes", 4: "fox", 5: "guardian", 6: "nbc", 7: "npr", 8: "nytimes",
+           9: "wsj", 10: "yahoo"}
 
-    for paper in papers:
+    for j in range(0, len(papers)):
+        paper = papers[j]
+
         for article in paper.articles:
-            article.download()
-            article.parse()
+            try:
+                article.download()
+                article.parse()
 
-            # if article.publish_date != None:
-            #     # check if the article is new
-            #     now = datetime.datetime.now(timezone.est)
-            #     time_elapsed = now - article.publish_date
-            #     if time_elapsed.total_seconds() > 172800:
-            #         continue
+                if article.publish_date == None:
+                    continue
+                if article.title == None:
+                    continue
 
-            # store the information of this article
-            res = []
-            res.append(i)
-            i+=1
+                res = []
+                res.append(i)
+                i += 1
 
-            res.append(article.url)
-            res.append(article.publish_date)
-            res.append(article.keywords)
-            res.append(article.summary)
-            # res.append(article.html)
-            res.append(article.text)
+                res.append(source[j])
+                res.append(article.url)
+                res.append(str(article.publish_date))
+                res.append(article.title)
+                res.append(' '.join(article.keywords))
+                res.append(article.summary)
 
-            with open('news.csv', 'a+', newline='') as file:
-                writer = csv.writer(file)
-                writer.writerow(res)
+                with open('news.csv', 'a+', newline='') as file:
+                    writer = csv.writer(file)
+                    writer.writerow(res)
+            except newspaper.article.ArticleException:
+                print("Failed to scrape some websites.")
 
     print("Done")
 
