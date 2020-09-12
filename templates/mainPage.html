@@ -34,6 +34,12 @@
             text-align: center;
             margin-top: 20px;
         }
+        label{
+            color: #000000;
+        }
+        fieldset{
+            border: 0;
+        }
 
 
     </style>
@@ -53,10 +59,79 @@
     </div>
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Clients</a>
-        <a href="#">Contact</a>
+        <form>
+            <fieldset>
+                <legend>Select News Source</legend>
+                <input type="checkbox" onclick="toggle(this, 'news source')" checked> <label>All Sources</label><br>
+                <input type="checkbox" name="news source" value="bbc" checked><label> BBC </label><br>
+                <input type="checkbox" name="news source" value="cnbc" checked><label> CNBC </label><br>
+                <input type="checkbox" name="news source" value="cnn" checked><label> CNN </label><br>
+                <input type="checkbox" name="news source" value="forbes" checked><label> Forbes </label><br>
+                <input type="checkbox" name="news source" value="fox" checked><label> FOX </label><br>
+                <input type="checkbox" name="news source" value="guardian" checked><label> Guardian </label><br>
+                <input type="checkbox" name="news source" value="nbc" checked><label> NBC </label><br>
+                <input type="checkbox" name="news source" value="npr" checked><label> NPR </label><br>
+                <input type="checkbox" name="news source" value="nytimes" checked><label> NY Times </label><br>
+                <input type="checkbox" name="news source" value="wsj" checked><label> WSJ </label><br>
+                <input type="checkbox" name="news source" value="yahoo" checked><label> Yahoo </label><br>
+                <br>
+                <hr />
+                <br>
+            </fieldset>
+            <legend>Sort Method</legend>
+            <input type="radio" name="sort" value="keyword" checked><label>Keyword</label><br>
+            <input type="radio" name="sort" value="high-frequency"><label>High-Frequency Word</label><br>
+            <input type="radio" id="sort" name="sort" value="sentiment"><label>Sentiment</label><br>
+            <br>
+            <hr />
+            <br>
+            <legend>Most Recent</legend>
+            <input type="radio" name="time" value="24" checked><label>24 Hours</label><br>
+            <input type="radio" name="time" value="48"><label>48 Hours</label><br>
+            <input type="radio" name="time" value="72"><label>72 Hours</label><br>
+            <br>
+            <hr />
+            <br>
+            <input type="range" name="rangeInput" min="0" max="60" step="5" onchange="updateTextInput(this.value);">
+            <p>Display <span id='rangeValue'>30</span> Words</p>
+
+
+
+            <br>
+            <hr />
+            <br>
+            <legend>Categories</legend>
+                <input type="checkbox" onclick="toggle(this, 'categories')" checked> <label>All Categories</label><br>
+                <input type="checkbox" name="categories" value="Arts & Entertainment" checked><label> Arts & Entertainment </label><br>
+                <input type="checkbox" name="categories" value="Autos & Vehicles" checked><label> Autos & Vehicles </label><br>
+                <input type="checkbox" name="categories" value="Beauty & Fitness" checked><label> Beauty & Fitness </label><br>
+                <input type="checkbox" name="categories" value="Books & Literature" checked><label> Books & Literature </label><br>
+                <input type="checkbox" name="categories" value="Business & Industrial" checked><label> Business & Industrial </label><br>
+                <input type="checkbox" name="categories" value="Computers & Electronics" checked><label> Computers & Electronics </label><br>
+                <input type="checkbox" name="categories" value="Finance" checked><label> Finance </label><br>
+                <input type="checkbox" name="categories" value="Food & Drink" checked><label> Food & Drink </label><br>
+                <input type="checkbox" name="categories" value="Games" checked><label> Games </label><br>
+                <input type="checkbox" name="categories" value="Health" checked><label> Health </label><br>
+                <input type="checkbox" name="categories" value="Hobbies & Leisure" checked><label> Hobbies & Leisure </label><br>
+                <input type="checkbox" name="categories" value="Home & Garden" checked><label> Home & Garden </label><br>
+                <input type="checkbox" name="categories" value="Internet & Telecom" checked><label> Internet & Telecom </label><br>
+                <input type="checkbox" name="categories" value="Jobs & Education" checked><label> Jobs & Education </label><br>
+                <input type="checkbox" name="categories" value="Law & Government" checked><label> Law & Government </label><br>
+                <input type="checkbox" name="categories" value="Online Communities" checked><label> Online Communities </label><br>
+                <input type="checkbox" name="categories" value="People & Society" checked><label> People & Society </label><br>
+                <input type="checkbox" name="categories" value="Pets & Animals" checked><label> Pets & Animals </label><br>
+                <input type="checkbox" name="categories" value="Real Estate" checked><label> Real Estate </label><br>
+                <input type="checkbox" name="categories" value="Reference" checked><label> Reference </label><br>
+                <input type="checkbox" name="categories" value="Science" checked><label> Science </label><br>
+                <input type="checkbox" name="categories" value="Sensitive Subjects" checked><label> Sensitive Subjects </label><br>
+                <input type="checkbox" name="categories" value="Shopping" checked><label> Shopping </label><br>
+                <input type="checkbox" name="categories" value="Sports" checked><label> Sports </label><br>
+                <input type="checkbox" name="categories" value="Travel" checked><label> Travel </label><br>
+
+        </form>
+        <div style="text-align:center;">
+            <button type="button" onclick="closeNav()" style="font-size:20px; ">Save</button>
+        </div>
     </div>
 
 </body>
