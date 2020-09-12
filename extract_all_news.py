@@ -45,8 +45,9 @@ def extract_news():
             i+=1
 
             res.append(article.url)
-            res.append(article.publish_date)
-            res.append(article.keywords)
+            res.append(str(article.publish_date))
+
+            res.append(' '.join(article.keywords))
             res.append(article.summary)
             # res.append(article.html)
             res.append(article.text)
