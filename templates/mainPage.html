@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WhatHappenedToday</title>
+    <link rel="stylesheet" href="searchBar.css">
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+    <script src="searchBar.js"></script>
+    <style>
+        .logo {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+            margin-top: 150px;
+        }
+        .seeWhatHappenedButton, .preferenceButton{
+            background-color: #F0F0F0;
+            margin-top: 30px;
+            border: none;
+            border-radius: 12px;
+            color: #505050;
+            padding: 15px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 40px;
+        }
+        .seeWhatHappenedButton:hover, .preferenceButton:hover{
+            border: 2px solid #AFAFAF;
+        }
+        .btn-group{
+            text-align: center;
+            margin-top: 20px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div>
+        <img src = "logo_HD.png" alt = "WhatHappenedToday" class = "logo">
+    </div>
+    <div class = "btn-group">
+        <button class = "seeWhatHappenedButton"> See What Happened </button>
+        <button id="main" class="preferenceButton" onclick="openNav()"> Edit Preference </button>
+    </div>
+    <div class="wrapper">
+	    <input type="text" class="input"
+	    placeholder="What news are you looking for?">
+	    <div class="searchbtn"><i class="fas fa-search"></i></div>
+    </div>
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+    </div>
+
+</body>
+</html>
