@@ -6,58 +6,58 @@ import csv
 
 def extract_news():
     # build all newspaper source
-    bbc_paper = newspaper.build('https://www.bbc.com', memorize_articles=False)
-    cnbc_paper = newspaper.build('https://www.cnbc.com/', memorize_articles=False)
-    cnn_paper = newspaper.build('https://edition.cnn.com', memorize_articles=False)
-    forbes_paper = newspaper.build('https://www.forbes.com', memorize_articles=False)
-    fox_paper = newspaper.build('https://www.foxnews.com', memorize_articles=False)
-    guardian_paper = newspaper.build('https://www.theguardian.com', memorize_articles=False)
-    nbc_paper = newspaper.build('https://www.nbc.com', memorize_articles=False)
-    npr_paper = newspaper.build('https://www.npr.org', memorize_articles=False)
-    nytimes_paper = newspaper.build('https://www.nytimes.com', memorize_articles=False)
-    wsj_paper = newspaper.build('https://www.wsj.com', memorize_articles=False)
-    yahoo_paper = newspaper.build('https://www.yahoo.com', memorize_articles=False)
+    bbc_paper = newspaper.build('https://www.bbc.com')
+    cnbc_paper = newspaper.build('https://www.cnbc.com/')
+    cnn_paper = newspaper.build('https://edition.cnn.com')
+    forbes_paper = newspaper.build('https://www.forbes.com')
+    fox_paper = newspaper.build('https://www.foxnews.com')
+    guardian_paper = newspaper.build('https://www.theguardian.com')
+    nbc_paper = newspaper.build('https://www.nbc.com')
+    npr_paper = newspaper.build('https://www.npr.org')
+    nytimes_paper = newspaper.build('https://www.nytimes.com')
+    wsj_paper = newspaper.build('https://www.wsj.com')
+    yahoo_paper = newspaper.build('https://www.yahoo.com')
 
     papers = [bbc_paper, cnbc_paper, cnn_paper, forbes_paper, fox_paper, guardian_paper, nbc_paper, npr_paper, nytimes_paper, wsj_paper, yahoo_paper]
 
     # write first row of the csv file
     with open('news.csv', 'w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(["#", "url", "date", "title", "keywords", "summary", "text"])
+        writer.writerow(["id", "source", "url", "date", "title", "keywords", "summary"])
 
     i = 1
+    source = {0: "bbc", 1: "cnbc", 2: "cnn", 3: "forbes", 4: "fox", 5: "guardian", 6: "nbc", 7: "npr", 8: "nytimes",
+           9: "wsj", 10: "yahoo"}
 
-    for paper in papers:
+    for j in range(0, len(papers)):
+        paper = papers[j]
+
         for article in paper.articles:
             try:
                 article.download()
-            except newspaper.article.ArticleException:
-                print("Failed to scrape some websites.")
-            article.parse()
+                article.parse()
 
-            if article.publish_date != None:
-                # check if the article is new
-                now = datetime.datetime.now()
-                time_elapsed = now - article.publish_date
-                if time_elapsed.total_seconds() > 172800:
+                if article.publish_date == None:
+                    continue
+                if article.title == None:
                     continue
 
-            # store the information of this article
-            res = []
-            res.append(i)
-            i+=1
+                res = []
+                res.append(i)
+                i += 1
 
-            res.append(article.url)
-            res.append(str(article.publish_date))
+                res.append(source[j])
+                res.append(article.url)
+                res.append(str(article.publish_date))
+                res.append(article.title)
+                res.append(' '.join(article.keywords))
+                res.append(article.summary)
 
-            res.append(' '.join(article.keywords))
-            res.append(article.summary)
-            # res.append(article.html)
-            res.append(article.text)
-
-            with open('news.csv', 'a+', newline='') as file:
-                writer = csv.writer(file)
-                writer.writerow(res)
+                with open('news.csv', 'a+', newline='') as file:
+                    writer = csv.writer(file)
+                    writer.writerow(res)
+            except newspaper.article.ArticleException:
+                print("Failed to scrape some websites.")
 
     print("Done")
 
