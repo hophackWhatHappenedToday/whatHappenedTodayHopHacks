@@ -61,7 +61,8 @@ def extract_news():
 
     print("Done")
 
-extract_news()
+
+
 
 
 

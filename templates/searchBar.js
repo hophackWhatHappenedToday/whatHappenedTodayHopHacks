@@ -9,3 +9,14 @@ function closeNav() {
   document.getElementById("mySidebar").style.width = "0";
   document.getElementById("main").style.marginLeft = "0";
 }
+
+function toggle(source, name) {
+  checkboxes = document.getElementsByName(name);
+  for(var i=0, n=checkboxes.length;i<n;i++) {
+    checkboxes[i].checked = source.checked;
+  }
+}
+
+function updateTextInput(val) {
+          document.getElementById('rangeValue').textContent=val;
+        }
