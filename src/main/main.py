@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 import os
+import json
 
 template_dir = os.path.abspath('../../templates')
 app = Flask(__name__, template_folder=template_dir, static_folder='../../static')
@@ -23,12 +24,8 @@ def keywordlist():
         time = request.form['time']
         range = request.form['rangeInput']
         categories = request.form.getlist('categories')
-        data = [
-  {'name': "Monte Falco", 'height': 1658, 'place': "Parco Foreste Casentinesi" },
-  {'name': "Monte Falterona", 'height': 1654, 'place': "Parco Foreste Casentinesi" },
-  {'name': "Poggio Scali", 'height': 1520, 'place': "Parco Foreste Casentinesi" },
-  {'name': "Pratomagno", 'height': 1592, 'place': "Parco Foreste Casentinesi" },
-  {'name': "Monte Amiata", 'height': 1738, 'place': "Siena" }]
+        data = [{'id': 123, 'data': 'qwerty', 'indices': [1,10]}, {'id': 345, 'data': 'mnbvc', 'indices': [2,11]}]
+
     return render_template('resultPage.html', data_dict=data)
 
 

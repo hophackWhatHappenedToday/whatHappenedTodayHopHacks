@@ -1,3 +1,24 @@
+var myInit = {
+    method: 'GET',
+    headers:{
+        'Content-Type':'application/json'
+    },
+    mode: 'cors',
+    cache:'default'
+};
+
+let myRequest = new Request("./data.json",myInit);
+var data;
+fetch(myRequest)
+    .then(function(resp){
+        return resp.json();
+    })
+    .then(function(a){
+        console.log(a)
+        data = a;
+    });
+
+
 function generateTableHead(table, data) {
   let thead = table.createTHead();
   let row = thead.insertRow();
