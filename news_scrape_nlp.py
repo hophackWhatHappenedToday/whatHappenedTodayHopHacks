@@ -45,6 +45,7 @@ def extract_news():
             try:
                 article.download()
                 article.parse()
+                print(article.title)
 
                 if article.publish_date == None:
                     continue
@@ -56,7 +57,6 @@ def extract_news():
                 type_ = enums.Document.Type.PLAIN_TEXT
                 language = "en"
                 encoding_type = enums.EncodingType.UTF8
-
 
                 document = {"content": article.text, "type": type_, "language": language}
 
@@ -74,7 +74,7 @@ def extract_news():
                 keywords={}
                 for entity in ent_response.entities:
                     keywords.Add(entity.name, entity.salience)
-
+                
                 sorted(keywords, key=keywords.get, reverse=True)
                 
                 i=1
@@ -85,9 +85,12 @@ def extract_news():
                     if i>5:
                         break
 
+                if article.publish_date==None or len(article.title)==0 or len(key_words)==0 or len(categories)==0 or sentiment_score==None:
+                    continue
+
                 news_data = news_data.append({
                     "news_id":num, "url": article.url, "date": str(article.publish_date.date()), 
-                    "source": str(j), "title": article.title, "keyword":key_words, 
+                    "source": str(j), "title": article.title, "keywords":key_words, 
                     "category":categories[0], "sentiment":sentiment_score}, ignore_index=True)
 
                 num+=1
