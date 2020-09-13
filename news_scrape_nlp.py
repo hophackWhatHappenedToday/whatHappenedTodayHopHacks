@@ -45,7 +45,6 @@ def extract_news():
             try:
                 article.download()
                 article.parse()
-                print(article.title)
 
                 if article.publish_date == None:
                     continue
