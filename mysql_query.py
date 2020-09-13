@@ -19,10 +19,13 @@ def run_sql(sql):
         conn.close()
 
 
+
 # sort_type in ['date', 'rdate', 'sentiment', 'rsentiment']
 # return None if no such keywords or return size <= 0
-# [{keyword: k, frequencny:n (int), average sentiment score:s (float), title:[t,t,t,t],url:[u,u,u,u], date[d,d,d,d](string), source[s,s,s,s], sentiment[s,s,s,s]}]
-def search_keywords(return_size, sort_type, source_input = [], category_input = [], date_input = 72):
+# return [{keyword: k, frequencny:n (int), average sentiment score:s (float), title:[t,t,t,t],url:[u,u,u,u], date[d,d,d,d](string), source[s,s,s,s], sentiment[s,s,s,s]}]
+def search_keywords(return_size, source_input = [], category_input = [], date_input = str(72), sort_type="rdate"):
+    if type(return_size) == type("abc"):
+        return_size = int(return_size)
     if return_size <= 0:
         return None
     
@@ -53,7 +56,7 @@ def search_keywords(return_size, sort_type, source_input = [], category_input = 
                 SELECT id
                 FROM source_index
                 WHERE source_name IN ({source_list})
-                   OR '' = {source_list};
+                   OR '' IN ({source_list});
                 """.format(source_list=source)
     source_list = run_sql(source_sql).id.values.tolist()
     
@@ -63,6 +66,8 @@ def search_keywords(return_size, sort_type, source_input = [], category_input = 
     
     # get date_list (a list of string in format '2020-09-12'), not-empty
     date_list = []
+    if type(date_input) == type("abd"):
+        date_input = int(date_input)
     today = datetime.datetime.now(pytz.timezone('EST')).date()
     if date_input >= 24:
         date_list.append(str(today))
@@ -84,7 +89,7 @@ def search_keywords(return_size, sort_type, source_input = [], category_input = 
                     FROM news_frequency
                     WHERE date IN ({date_list})
                       AND source IN({source_list})
-                      AND (category IN ({category_list}) OR '' = {category_list})
+                      AND (category IN ({category_list}) OR '' IN ({category_list}))
                     GROUP BY keywords
                     ORDER BY sum(frequency) DESC
                     LIMIT {size};
@@ -106,8 +111,8 @@ def search_keywords(return_size, sort_type, source_input = [], category_input = 
                             FROM news_details
                             WHERE date IN ({date_list})
                               AND source IN({source_list})
-                              AND (category IN ({category_list}) OR '' = {category_list})
-                              AND keywords = {keywords}
+                              AND (category IN ({category_list}) OR '' IN ({category_list}))
+                              AND keywords = '{keywords}'
                             GROUP BY date, source, news_id, title, url, sentiment
                             ORDER BY {order1} {ascend}, {order2} {ascend};
                             """.format(date_list=date, source_list=source, category_list=category, keywords=keyword, order1=sort1, order2=sort2, ascend=ascend)
@@ -123,15 +128,17 @@ def search_keywords(return_size, sort_type, source_input = [], category_input = 
             source_name_sql = """
                                 SELECT source_name
                                 FROM source_index
-                                WHERE id = {id};
+                                WHERE id = '{id}';
                                 """.format(id=i)
             source_name = run_sql(source_name_sql).source_name.values.tolist()[0]
-            source_restult.append(source_name)
+            source_result.append(source_name)
         
         value = [freq_list[index], np.mean(sentiment_result), title_result, url_result, date_result, source_result, sentiment_result]
         result[keyword] = value
     
     return result
+
+
 
 
 # gcloud config set project whathappendtoday
