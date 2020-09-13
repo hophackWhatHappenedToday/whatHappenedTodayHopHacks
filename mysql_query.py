@@ -19,7 +19,8 @@ def run_sql(sql):
         conn.close()
 
 
-# return None if no such keywords
+# sort_type in ['date', 'rdate', 'sentiment', 'rsentiment']
+# return None if no such keywords or return size <= 0
 # [{keyword: k, frequencny:n (int), average sentiment score:s (float), title:[t,t,t,t],url:[u,u,u,u], date[d,d,d,d](string), source[s,s,s,s], sentiment[s,s,s,s]}]
 def search_keywords(return_size, sort_type, source_input = [], category_input = [], date_input = 72):
     if return_size <= 0:
