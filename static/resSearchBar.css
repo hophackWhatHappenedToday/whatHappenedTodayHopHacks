@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Comfortaa');
 
-*{
+.input{
 	margin: 0;
 	padding: 0;
 	outline: none;
@@ -16,7 +16,7 @@ body{
 .wrapper{
 	position: relative;
     top: 100px;
-    left: 50%;
+    left: 30%;
     transform: translate(-50%, -50%);
     background: rgba(0, 0, 0,0.6);
     max-width: 800px;

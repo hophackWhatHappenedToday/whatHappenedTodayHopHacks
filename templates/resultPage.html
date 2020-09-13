@@ -5,21 +5,55 @@
     <title>These News Happened Today</title>
     <style>
         .logo {
-            display: inline;
             margin-left: 3%;
             width: 20%;
             margin-top: 20px;
         }
-        .headTexts{
-            display:inline;
-            white-space:nowrap;
+        .headGroup{
+            display: inline-block;
         }
+        .headText{
+            font-size:30px;
+            font-family: Arial, Helvetica, sans-serif
+        }
+        #data tr:hover {
+            background-color: #ddd;
+        }
+        #data {
+            font-family: "Arial, Helvetica, sans-serif";
+            text-align: center;
+            width: 100%;
+            font-size:20px
+        }
+
     </style>
+    <link rel="stylesheet" href="../static/resSearchBar.css">
+    <link rel="stylesheet" href="../static/sidebar.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+
 </head>
 <body>
 
-        <div class="headGroup">
-            <img class = "logo" src="logo_HD.png"/>Here are the news for you!
+
+    <div class = "headGroup">
+        <div>
+            <img class = "logo" src="../static/logo_HD.png" style="float:left"/>
         </div>
+        <div class="wrapper">
+            <input type="text" class="input" placeholder="What news are you looking for?">
+	            <div class="searchbtn"><i class="fas fa-search"></i></div>
+        </div>
+        </div>
+    <br>
+    <div class = "headText">
+        <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspKeep up with the latest trending news </p>
+        </div>
+    <table id = 'data'>
+        <!-- here goes our data! -->
+    </table>
+
+
+
 </body>
+<script src="../static/build-table.js"></script>
 </html>

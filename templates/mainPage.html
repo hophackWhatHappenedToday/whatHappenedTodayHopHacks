@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>WhatHappenedToday</title>
-    <link rel="stylesheet" href="searchBar.css">
-    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="../static/searchBar.css">
+    <link rel="stylesheet" href="../static/sidebar.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
-    <script src="searchBar.js"></script>
+    <script src="../static/searchBar.js"></script>
     <style>
         .logo {
             display: block;
@@ -46,10 +46,10 @@
 </head>
 <body>
     <div>
-        <img src = "logo_HD.png" alt = "WhatHappenedToday" class = "logo">
+        <img src = "../static/logo_HD.png" alt = "WhatHappenedToday" class = "logo">
     </div>
     <div class = "btn-group">
-        <button class = "seeWhatHappenedButton"> See What Happened </button>
+        <button class = "seeWhatHappenedButton" type="submit" form="preference"> See What Happened </button>
         <button id="main" class="preferenceButton" onclick="openNav()"> Edit Preference </button>
     </div>
     <div class="wrapper">
@@ -59,29 +59,27 @@
     </div>
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <form>
-            <fieldset>
+        <form method="POST" id = 'preference' action = '/'>
                 <legend>Select News Source</legend>
-                <input type="checkbox" onclick="toggle(this, 'news source')" checked> <label>All Sources</label><br>
-                <input type="checkbox" name="news source" value="bbc" checked><label> BBC </label><br>
-                <input type="checkbox" name="news source" value="cnbc" checked><label> CNBC </label><br>
-                <input type="checkbox" name="news source" value="cnn" checked><label> CNN </label><br>
-                <input type="checkbox" name="news source" value="forbes" checked><label> Forbes </label><br>
-                <input type="checkbox" name="news source" value="fox" checked><label> FOX </label><br>
-                <input type="checkbox" name="news source" value="guardian" checked><label> Guardian </label><br>
-                <input type="checkbox" name="news source" value="nbc" checked><label> NBC </label><br>
-                <input type="checkbox" name="news source" value="npr" checked><label> NPR </label><br>
-                <input type="checkbox" name="news source" value="nytimes" checked><label> NY Times </label><br>
-                <input type="checkbox" name="news source" value="wsj" checked><label> WSJ </label><br>
-                <input type="checkbox" name="news source" value="yahoo" checked><label> Yahoo </label><br>
+                <input type="checkbox" onclick="toggle(this, 'newssource')" checked> <label>All Sources</label><br>
+                <input type="checkbox" name="newssource" value="bbc" checked><label> BBC </label><br>
+                <input type="checkbox" name="newssource" value="cnbc" checked><label> CNBC </label><br>
+                <input type="checkbox" name="newssource" value="cnn" checked><label> CNN </label><br>
+                <input type="checkbox" name="newssource" value="forbes" checked><label> Forbes </label><br>
+                <input type="checkbox" name="newssource" value="fox" checked><label> FOX </label><br>
+                <input type="checkbox" name="newssource" value="guardian" checked><label> Guardian </label><br>
+                <input type="checkbox" name="newssource" value="nbc" checked><label> NBC </label><br>
+                <input type="checkbox" name="newssource" value="npr" checked><label> NPR </label><br>
+                <input type="checkbox" name="newssource" value="nytimes" checked><label> NY Times </label><br>
+                <input type="checkbox" name="newssource" value="wsj" checked><label> WSJ </label><br>
+                <input type="checkbox" name="newssource" value="yahoo" checked><label> Yahoo </label><br>
                 <br>
                 <hr />
                 <br>
-            </fieldset>
             <legend>Sort Method</legend>
             <input type="radio" name="sort" value="keyword" checked><label>Keyword</label><br>
             <input type="radio" name="sort" value="high-frequency"><label>High-Frequency Word</label><br>
-            <input type="radio" id="sort" name="sort" value="sentiment"><label>Sentiment</label><br>
+            <input type="radio" name="sort" value="sentiment"><label>Sentiment</label><br>
             <br>
             <hr />
             <br>
