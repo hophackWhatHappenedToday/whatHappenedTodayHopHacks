@@ -24,9 +24,13 @@ def keywordlist():
         time = request.form['time']
         range = request.form['rangeInput']
         categories = request.form.getlist('categories')
-        data = [{'id': 123, 'data': 'qwerty', 'indices': [1,10]}, {'id': 345, 'data': 'mnbvc', 'indices': [2,11]}]
 
-    return render_template('resultPage.html', data_dict=data)
+        data = [{'x':'trump', 'value':10, 'date':100, 'sentiment':50},
+                {'x':'brump', 'value':6, 'date':2, 'sentiment':30},
+                {'x':'arump', 'value':4, 'date':17, 'sentiment':20},
+                {'x':'trump', 'value':1, 'date':10, 'sentiment':500}]
+
+    return render_template('resultPage.html', data_dict=json.dumps(data))
 
 
 if __name__ == "__main__":
