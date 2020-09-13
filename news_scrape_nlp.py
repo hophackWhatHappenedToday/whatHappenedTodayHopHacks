@@ -4,11 +4,13 @@ from newspaper import Article
 import datetime
 from datetime import timezone
 import pandas as pd
+import numpy as np
 from google.cloud import language
 from google.cloud.language import enums
 from google.cloud.language import types
 from google.cloud import language_v1
 from google.cloud.language_v1 import enums
+from mysql_engine import get_mysql_eng
 
 def extract_news():
     # build all newspaper source
@@ -24,10 +26,13 @@ def extract_news():
     wsj_paper = newspaper.build('https://www.wsj.com')
     yahoo_paper = newspaper.build('https://www.yahoo.com')
 
-    papers = [bbc_paper, cnbc_paper, cnn_paper, forbes_paper, fox_paper, guardian_paper, nbc_paper, npr_paper, nytimes_paper, wsj_paper, yahoo_paper]
+    papers = [bbc_paper, cnbc_paper, cnn_paper, forbes_paper, fox_paper, 
+              guardian_paper, nbc_paper, npr_paper, nytimes_paper, wsj_paper, yahoo_paper]
 
-    source = {0: "bbc", 1: "cnbc", 2: "cnn", 3: "forbes", 4: "fox", 5: "guardian", 6: "nbc", 7: "npr", 8: "nytimes",
-           9: "wsj", 10: "yahoo"}
+    source = {0: "bbc", 1: "cnbc", 2: "cnn", 
+              3: "forbes", 4: "fox", 5: "guardian", 
+              6: "nbc", 7: "npr", 8: "nytimes", 
+              9: "wsj", 10: "yahoo"}
     
     news_data = pd.DataFrame(columns=["news_id","url", "date", "source", "title", "keywords", "category", "sentiment"])
     
@@ -87,21 +92,43 @@ def extract_news():
                         if i>5:
                             break
 
-                news_data = news_data.append({"news_id":num+=1, "url": article.url, "date": str(article.publish_date.date()), "source": str(j), "title": article.title, "keyword":key_words, "category":categories[0], "sentiment":sentiment_score}, ignore_index=True)
+                news_data = news_data.append({
+                    "news_id":num+=1, "url": article.url, "date": str(article.publish_date.date()), 
+                    "source": str(j), "title": article.title, "keyword":key_words, 
+                    "category":categories[0], "sentiment":sentiment_score}, ignore_index=True)
             except newspaper.article.ArticleException:
                 print("Failed to scrape some websites.")
                 
-    news_data.to_pickle("news.pkl")
+    news_data_final = pd.DataFrame({
+        col:np.repeat(news_data[col].values, news_data['keywords'].str.len())
+        for col in news_data.columns.drop('keywords')}
+        ).assign(**{'keywords':np.concatenate(news_data['keywords'].values)})[news_data.columns]
 
-    print("Done")  
+    data_with_freq = news_data_final.groupby(['keywords', 'source', 'date', 'category']).size().reset_index(name='frequency')
+    data_with_freq = data_with_freq.sort_values(by=['date', 'source'], ignore_index=True)
+    
+    print("Done") 
+    return [news_data_final, data_with_freq]
+    
+     
 
+    
+def write_to_table(data, table_name):    
+    engine = get_mysql_eng()
+    conn = engine.connect()
+    try:
+        data.to_sql(table_name, conn, index=False, if_exists='append')
+    except Exception as err: 
+        print("fail!")
+        print(err)
+    else:
+        print("Table %s created successfully."%table_name);   
+    finally:
+        conn.close()
+
+        
 if __name__=="__main__":
-    extract_news()
-
-
-
-
-
-
-
+    [news_data_final, data_with_freq] = extract_news()
+    write_to_table(news_data_final, "news_details")
+    write_to_table(data_with_freq, "news_frequency")
 
