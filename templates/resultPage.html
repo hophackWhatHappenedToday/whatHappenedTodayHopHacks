@@ -11,8 +11,11 @@
         }
         .headGroup{
             display: inline-block;
+            margin-bottom: 1.0em
         }
         .headText{
+            width:100%
+            text-align: center;
             font-size:30px;
             font-family: Arial, Helvetica, sans-serif
         }
@@ -25,12 +28,19 @@
             width: 100%;
             font-size:20px
         }
+        table.headText tr td:nth-of-type(1){
+            padding-right: 350px;
+        }
+        table.headText tr td:nth-of-type(3){
+            padding-right: 30px;
+        }
+
 
     </style>
     <link rel="stylesheet" href="../static/resSearchBar.css">
     <link rel="stylesheet" href="../static/sidebar.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
-
+    <script src="../static/searchBar.js"></script>
 </head>
 <body>
 
@@ -40,20 +50,30 @@
             <img class = "logo" src="../static/logo_HD.png" style="float:left"/>
         </div>
         <div class="wrapper">
-            <input type="text" class="input" placeholder="What news are you looking for?">
-	            <div class="searchbtn"><i class="fas fa-search"></i></div>
+            <input type="text" class="input" id= "searchText" placeholder="What news are you looking for?">
+	            <div class="searchbtn" onClick="search()"><i class="fas fa-search" ></i></div>
         </div>
-        </div>
-    <br>
-    <div class = "headText">
-        <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspKeep up with the latest trending news </p>
-        </div>
+        <br>
+        <br>
+    </div>
+<div style="margin-bottom: 1.5em">
+    <table class = "headText">
+        <tr>
+            <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspKeep up with the latest trending news</td>
+            <td>Display Mode: </td>
+            <td><input type="radio" name="displayMode" value="cloud" checked><label>Word Cloud</label></td>
+            <td><input type="radio" name="displayMode" value="list"><label>List</label></td>
+        </tr>
+        <br>
+    </table>
+</div>
     <table id = 'data'>
-        <!-- here goes our data! -->
     </table>
 
 
 
 </body>
+<script src="../static/data.json"></script>
 <script src="../static/build-table.js"></script>
+
 </html>

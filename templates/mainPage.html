@@ -53,9 +53,9 @@
         <button id="main" class="preferenceButton" onclick="openNav()"> Edit Preference </button>
     </div>
     <div class="wrapper">
-	    <input type="text" class="input"
+	    <input type="text" class="input" id="searchText"
 	    placeholder="What news are you looking for?">
-	    <div class="searchbtn"><i class="fas fa-search"></i></div>
+	    <div class="searchbtn" onclick="search()"><i class="fas fa-search"></i></div>
     </div>
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -76,13 +76,6 @@
                 <br>
                 <hr />
                 <br>
-            <legend>Sort Method</legend>
-            <input type="radio" name="sort" value="keyword" checked><label>Keyword</label><br>
-            <input type="radio" name="sort" value="high-frequency"><label>High-Frequency Word</label><br>
-            <input type="radio" name="sort" value="sentiment"><label>Sentiment</label><br>
-            <br>
-            <hr />
-            <br>
             <legend>Most Recent</legend>
             <input type="radio" name="time" value="24" checked><label>24 Hours</label><br>
             <input type="radio" name="time" value="48"><label>48 Hours</label><br>

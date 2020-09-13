@@ -1,15 +1,12 @@
 anychart.onDocumentReady(function () {
-
-    // create data
     var data = [
-        {x: "COVID-19", value: 80/*, category: "Medicine"*/},
-        {x: "Coronavirus", value: 56/*, category: "Medicine"*/},
-        {x: "Brexit", value: 44/*, category: "Politics"*/},
-        {x: "Premier League ", value: 40/*, category: "Sports"*/},
-        {x: "Stevie Lee", value: 36/*, category: "People"*/},
-    ];
-
-    // create a chart and set the data
+    {x: "COVID-19", value: 80},
+    {x: "Coronavirus", value: 56},
+    {x: "Brexit", value: 44},
+    {x: "Premier League ", value: 40},
+    {x: "Stevie Lee", value: 36},
+];
+	// create a chart and set the data
     var chart = anychart.tagCloud(data);
 
     // set the chart title
@@ -38,3 +35,20 @@ anychart.onDocumentReady(function () {
 
     chart.normal().fontFamily("Verdana");
 });
+
+
+/*
+anychart.onDocumentReady(function () {
+    // To work with the data adapter you need to reference the data adapter script file from AnyChart CDN
+    // https://cdn.anychart.com/releases/8.7.1/js/anychart-data-adapter.min.js
+    anychart.data.loadCsvFile("https://cdn.anychart.com/charts-data/data_csv.csv", function (data) {
+
+    // create chart from loaded data
+    var chart = anychart.bar(data);
+    // set title
+    chart.title("AnyChart from CSV File");
+    // draw chart
+    chart.container("container").draw();
+ });
+});
+*/
