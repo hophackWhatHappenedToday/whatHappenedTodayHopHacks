@@ -13,7 +13,7 @@ anychart.onDocumentReady(function () {
     var chart = anychart.tagCloud(data);
 
     // set the chart title
-    chart.title("Tag Cloud Chart: Basic Sample");
+    chart.title("Word Cloud: What Happened?");
 
     // set the container id
     chart.container("container");
@@ -22,7 +22,7 @@ anychart.onDocumentReady(function () {
     chart.draw();
 
     chart.listen("pointClick", function(e){
-        var url = "http://www.google.com/search?q=" + e.point.get("x");
+        var url = "https://news.google.com/search?q=" + e.point.get("x");
         window.open(url, "_blank");
     });
 
@@ -36,5 +36,5 @@ anychart.onDocumentReady(function () {
     // add a color range
     chart.colorRange().enabled(true);
 
-    chart.normal().fontFamily("Times New Roman");
+    chart.normal().fontFamily("Verdana");
 });
