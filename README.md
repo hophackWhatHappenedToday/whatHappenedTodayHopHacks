@@ -26,6 +26,8 @@ Feel free to edit your preference for selecting certain proportions of the news.
 
 ### Web Scraper
 
+We use a web scraper for extracting news articles using the [Newspaper3k](https://newspaper.readthedocs.io/en/latest/) package in python. 
+
 ### Data Storage
 
 ### Natural Language Processing
