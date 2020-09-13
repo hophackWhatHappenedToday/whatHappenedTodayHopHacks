@@ -1,16 +1,10 @@
 anychart.onDocumentReady(function () {
 
     // create data
-    var data = [
-        {x: "COVID-19", value: 80/*, category: "Medicine"*/},
-        {x: "Coronavirus", value: 56/*, category: "Medicine"*/},
-        {x: "Brexit", value: 44/*, category: "Politics"*/},
-        {x: "Premier League ", value: 40/*, category: "Sports"*/},
-        {x: "Stevie Lee", value: 36/*, category: "People"*/},
-    ];
+
 
     // create a chart and set the data
-    var chart = anychart.tagCloud(data);
+    var chart = anychart.tagCloud(rawData);
 
     // set the chart title
     chart.title("Word Cloud: What Happened?");

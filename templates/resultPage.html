@@ -41,6 +41,10 @@
     <link rel="stylesheet" href="../static/sidebar.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
     <script src="../static/searchBar.js"></script>
+    <script type="text/javascript" src="../static/list.js"></script>
+    <script type="text/javascript" src="../static/cloud.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-tag-cloud.min.js"></script>
 </head>
 <body>
 
@@ -70,10 +74,10 @@
     <table id = 'data'>
     </table>
 
+<input id = "rawdata" type="text" name = "result" style="height:200px;width:500px;"  value = "{{data_dict}}"/>
+
 
 
 </body>
-<script src="../static/data.json"></script>
-<script src="../static/build-table.js"></script>
 
 </html>
