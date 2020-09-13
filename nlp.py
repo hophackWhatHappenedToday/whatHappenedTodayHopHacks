@@ -4,7 +4,7 @@ from google.cloud.language import enums
 from google.cloud.language import types
 from google.cloud import language_v1
 from google.cloud.language_v1 import enums
-
+import pandas as pd
 import newspaper
 from newspaper import Article
 
@@ -15,6 +15,7 @@ type_ = enums.Document.Type.PLAIN_TEXT
 language = "en"
 encoding_type = enums.EncodingType.UTF8
 
+index = 1
 for data in file:
     url = choose the url from data
 
@@ -45,3 +46,8 @@ for data in file:
     key_words = []
     for key in keywords.keys():
         key_words.append(key)
+        i+=1
+        if i>5:
+            break
+
+    result_dic = 
