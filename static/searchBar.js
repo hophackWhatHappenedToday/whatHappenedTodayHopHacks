@@ -20,3 +20,9 @@ function toggle(source, name) {
 function updateTextInput(val) {
           document.getElementById('rangeValue').textContent=val;
         }
+
+function search(){
+        var text = document.getElementById('searchText').value;
+        var url = "https://news.google.com/search?q=" + text;
+        window.open(url, "_blank");
+}
