@@ -19,11 +19,12 @@ def run_sql(sql):
         conn.close()
 
 
-
-
 # return None if no such keywords
 # [{keyword: k, frequencny:n (int), average sentiment score:s (float), title:[t,t,t,t],url:[u,u,u,u], date[d,d,d,d](string), source[s,s,s,s], sentiment[s,s,s,s]}]
 def search_keywords(return_size, sort_type, source_input = [], category_input = [], date_input = 72):
+    if return_size <= 0:
+        return None
+    
     # get sort_type
     if sort_type == 'date':
         sort1 = 'date'
@@ -78,7 +79,7 @@ def search_keywords(return_size, sort_type, source_input = [], category_input = 
     category = category + "'"
     
     keywords_freq_sql = """
-                    SELECT keywords, sum(frequency) as freq
+                    SELECT keywords, sum(frequency) AS freq
                     FROM news_frequency
                     WHERE date IN ({date_list})
                       AND source IN({source_list})
@@ -86,7 +87,7 @@ def search_keywords(return_size, sort_type, source_input = [], category_input = 
                     GROUP BY keywords
                     ORDER BY sum(frequency) DESC
                     LIMIT {size};
-                    """.format(date_list=date, source_input=source, category_input=category, size=return_size)
+                    """.format(date_list=date, source_list=source, category_list=category, size=return_size)
     keywords_freq = run_sql(keywords_freq_sql)
 
     keywords_list = keywords_freq.keywords.values.tolist()  # a list of keywords
@@ -108,7 +109,7 @@ def search_keywords(return_size, sort_type, source_input = [], category_input = 
                               AND keywords = {keywords}
                             GROUP BY date, source, news_id, title, url, sentiment
                             ORDER BY {order1} {ascend}, {order2} {ascend};
-                            """.format(date_list=date, source_input=source, category_input=category, keywords=keyword, order1=sort1, order2=sort2, ascend=ascend)
+                            """.format(date_list=date, source_list=source, category_list=category, keywords=keyword, order1=sort1, order2=sort2, ascend=ascend)
         detail = run_sql(keywords_detail_sql)
         date_result = detail.date.values.tolist()
         title_result = detail.title.values.tolist()
@@ -130,8 +131,6 @@ def search_keywords(return_size, sort_type, source_input = [], category_input = 
         result[keyword] = value
     
     return result
-
-
 
 
 # gcloud config set project whathappendtoday
