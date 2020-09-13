@@ -19,6 +19,8 @@ def run_sql(sql):
         conn.close()
 
 
+# In[53]:
+
 
 # sort_type in ['date', 'rdate', 'sentiment', 'rsentiment']
 # return None if no such keywords or return size <= 0
@@ -94,8 +96,8 @@ def search_keywords(return_size, source_input = [], category_input = [], date_in
                     ORDER BY sum(frequency) DESC
                     LIMIT {size};
                     """.format(date_list=date, source_list=source, category_list=category, size=return_size)
-    keywords_freq = run_sql(keywords_freq_sql)
-
+    keywords_freq = run_sql(keywords_freq_sql)  
+    
     keywords_list = keywords_freq.keywords.values.tolist()  # a list of keywords
     if len(keywords_list) == 0:
         return None
@@ -137,8 +139,6 @@ def search_keywords(return_size, source_input = [], category_input = [], date_in
         result[keyword] = value
     
     return result
-
-
 
 
 # gcloud config set project whathappendtoday
