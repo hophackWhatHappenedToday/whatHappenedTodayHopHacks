@@ -86,9 +86,11 @@ def extract_news():
                         break
 
                 news_data = news_data.append({
-                    "news_id":num+=1, "url": article.url, "date": str(article.publish_date.date()), 
+                    "news_id":num, "url": article.url, "date": str(article.publish_date.date()), 
                     "source": str(j), "title": article.title, "keyword":key_words, 
                     "category":categories[0], "sentiment":sentiment_score}, ignore_index=True)
+
+                num+=1
 
             except newspaper.article.ArticleException:
                 print("Failed to scrape some websites.")
