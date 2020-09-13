@@ -9,22 +9,26 @@ app = Flask(__name__, template_folder=template_dir, static_folder='../../static'
 
 @app.route('/', methods=['POST', 'GET'])
 def main():
+    return keywordlist()
+
+
+@app.route('/', methods=['POST', 'GET'])
+def keywordlist():
     if request.method == "GET":
         print("GET")
         return render_template('mainPage.html', message="GET")
     else:
         print("POST")
         source = request.form.getlist('newssource')
-        sort = request.form['sort']
         time = request.form['time']
         range = request.form['rangeInput']
         categories = request.form.getlist('categories')
-        print(source)
-        print(sort)
-        print(time)
-        print(range)
-        print(categories)
-        data = filter(source, sort, time, range, categories)
+        data = [
+  {'name': "Monte Falco", 'height': 1658, 'place': "Parco Foreste Casentinesi" },
+  {'name': "Monte Falterona", 'height': 1654, 'place': "Parco Foreste Casentinesi" },
+  {'name': "Poggio Scali", 'height': 1520, 'place': "Parco Foreste Casentinesi" },
+  {'name': "Pratomagno", 'height': 1592, 'place': "Parco Foreste Casentinesi" },
+  {'name': "Monte Amiata", 'height': 1738, 'place': "Siena" }]
     return render_template('resultPage.html', data_dict=data)
 
 
