@@ -57,45 +57,39 @@ def extract_news():
                 language = "en"
                 encoding_type = enums.EncodingType.UTF8
 
-                index = 1
-                for data in file:
-                    url = choose the url from data
 
-                    article = Article(url)
-                    article.download()
-                    article.parse()
+                document = {"content": article.text, "type": type_, "language": language}
 
-                    document = {"content": article.text, "type": type_, "language": language}
+                sen_response = client.analyze_sentiment(document, encoding_type=encoding_type)
+                
+                sentiment_score = response.document_sentiment.score
+                
+                cat_response = client.classify_text(document, encoding_type=encoding_type)
 
-                    sen_response = client.analyze_sentiment(document, encoding_type=encoding_type)
-                    
-                    sentiment_score = response.document_sentiment.score
-                    
-                    cat_response = client.classify_text(document, encoding_type=encoding_type)
+                categories = []
+                for category in cat_response.categories:
+                    categories.append(category.name)
 
-                    categories = []
-                    for category in cat_response.categories:
-                        categories.append(category.name)
+                ent_response = client.analyze_entities(document, encoding_type=encoding_type)
+                keywords={}
+                for entity in ent_response.entities:
+                    keywords.Add(entity.name, entity.salience)
 
-                    ent_response = client.analyze_entities(document, encoding_type=encoding_type)
-                    keywords={}
-                    for entity in ent_response.entities:
-                        keywords.Add(entity.name, entity.salience)
-
-                    sorted(keywords, key=keywords.get, reverse=True)
-                    
-                    i=1
-                    key_words = []
-                    for key in keywords.keys():
-                        key_words.append(key)
-                        i+=1
-                        if i>5:
-                            break
+                sorted(keywords, key=keywords.get, reverse=True)
+                
+                i=1
+                key_words = []
+                for key in keywords.keys():
+                    key_words.append(key)
+                    i+=1
+                    if i>5:
+                        break
 
                 news_data = news_data.append({
                     "news_id":num+=1, "url": article.url, "date": str(article.publish_date.date()), 
                     "source": str(j), "title": article.title, "keyword":key_words, 
                     "category":categories[0], "sentiment":sentiment_score}, ignore_index=True)
+
             except newspaper.article.ArticleException:
                 print("Failed to scrape some websites.")
                 
